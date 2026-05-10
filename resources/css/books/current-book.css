@@ -1,0 +1,559 @@
+/* ============================================
+   СТРАНИЦА КНИГИ — УНИКАЛЬНЫЕ КЛАССЫ
+   Не конфликтует с index.css
+   ============================================ */
+
+/* Навигация назад */
+.back-link {
+    margin-bottom: 25px;
+}
+
+.btn-back {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #5c3a21;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    background-color: #fdf6ec;
+    border-color: #c49a6c;
+    color: #3e2e21;
+    transform: translateX(-2px);
+}
+
+/* Hero секция */
+.book-hero {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fdf6ec 0%, #f8efe0 100%);
+    border-bottom: 1px solid #e0d3c5;
+    margin-bottom: 40px;
+}
+
+.book-hero-inner {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* Обложка */
+.book-page-cover {
+    width: 260px;
+    height: 360px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #5c3a21, #8b5a2b);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(62, 46, 33, 0.25), 0 0 0 4px #fff, 0 0 0 5px #e0d3c5;
+    position: relative;
+}
+
+.book-page-cover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.2), transparent);
+    border-radius: 8px 0 0 8px;
+}
+
+.book-page-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-cover-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    color: #fdf6ec;
+    font-weight: 700;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    opacity: 0.9;
+}
+
+/* Информация о книге */
+.book-page-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.book-page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #3e2e21;
+    margin-bottom: 6px;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+}
+
+.book-page-author {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    color: #8b5a2b;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: inline-block;
+    border-bottom: 2px solid #c49a6c;
+    padding-bottom: 4px;
+}
+
+/* Мета (год, ISBN) */
+.book-page-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.book-page-meta .book-year,
+.book-page-meta .book-isbn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: #5c3a21;
+    background-color: rgba(139, 90, 43, 0.06);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid #e0d3c5;
+}
+
+.book-page-meta .book-year::before {
+    content: '📅';
+    font-size: 0.9rem;
+}
+
+.book-page-meta .book-isbn::before {
+    content: '📘';
+    font-size: 0.9rem;
+}
+
+/* Описание */
+.book-page-description {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    color: #5c3a21;
+    line-height: 1.8;
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    position: relative;
+}
+
+.book-page-description::before {
+    content: '❝';
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    font-size: 2rem;
+    color: #c49a6c;
+    font-family: 'Playfair Display', serif;
+    opacity: 0.3;
+}
+
+/* Рейтинг */
+.book-rating-block {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 12px 18px;
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+}
+
+.book-rating-block .stars {
+    color: #c49a6c;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+}
+
+.book-rating-block .rating-value {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3e2e21;
+}
+
+.book-rating-block .rating-count {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* Секция рецензий */
+.reviews-section {
+    margin-bottom: 50px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0d3c5;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #3e2e21;
+}
+
+.section-count {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #999;
+    background-color: rgba(139, 90, 43, 0.08);
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.review-card {
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    padding: 22px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.2s;
+}
+
+.review-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.review-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-username {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    color: #3e2e21;
+    font-size: 0.95rem;
+}
+
+.review-stars {
+    color: #c49a6c;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.review-body {
+    font-family: 'Source Sans 3', sans-serif;
+    color: #5c3a21;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+
+.review-footer {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: #bbb;
+}
+
+.review-dates {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* Аватары */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #8b5a2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.avatar-sm img,
+.avatar-xs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-xs {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #8b5a2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.avatar-letter {
+    color: #fdf6ec;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+/* Пустое состояние */
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #999;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+/* Секция комментариев */
+.comments-section {
+    margin-top: 50px;
+}
+
+.comment-card {
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.comment-card.reply {
+    background-color: rgba(139, 90, 43, 0.02);
+    border: 1px solid #f0e6d9;
+    margin-bottom: 10px;
+}
+
+.comment-header {
+    margin-bottom: 10px;
+}
+
+.comment-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-user strong {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #3e2e21;
+}
+
+.comment-user time {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    color: #bbb;
+    margin-left: auto;
+}
+
+.comment-body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    color: #5c3a21;
+    line-height: 1.6;
+}
+
+.replies {
+    margin-top: 14px;
+    padding-left: 30px;
+    border-left: 2px solid #e0d3c5;
+}
+
+/* Формы */
+.review-form,
+.comment-form {
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    padding: 18px 25px;
+    margin-bottom: 20px;
+}
+
+.review-form h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #3e2e21;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    color: #3e2e21;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0d3c5;
+    border-radius: 4px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #8b5a2b;
+}
+
+.form-error {
+    display: block;
+    color: #c0392b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+/* Звёзды */
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.rating-input input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.rating-input label {
+    font-size: 2rem;
+    color: #e0d3c5;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label {
+    color: #c49a6c;
+}
+
+/* Кнопки */
+.btn-submit, .btn-submit-sm {
+    display: inline-block;
+    padding: 10px 28px;
+    background-color: #8b5a2b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit-sm {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+}
+
+.btn-submit:hover, .btn-submit-sm:hover {
+    background-color: #5c3a21;
+}
+
+.btn-reply {
+    background: none;
+    border: none;
+    color: #8b5a2b;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 8px;
+}
+
+.btn-reply:hover {
+    color: #5c3a21;
+    text-decoration: underline;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #e0d3c5;
+    margin: 25px 0;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .book-hero-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .book-page-cover {
+        width: 200px;
+        height: 280px;
+    }
+    .book-page-title {
+        font-size: 1.8rem;
+    }
+    .book-page-meta {
+        justify-content: center;
+    }
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .book-rating-block {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    .replies {
+        padding-left: 18px;
+    }
+}

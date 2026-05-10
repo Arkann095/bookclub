@@ -1,0 +1,179 @@
+/* === ROOT (только для главной, не дублируем переменные хедера) === */
+:root {
+    --home-bg: #fdf6ec;
+    --home-dark: #3e2e21;
+    --home-accent: #8b5a2b;
+    --home-accent-soft: #c49a6c;
+    --home-glass: rgba(255,255,255,0.4);
+}
+
+/* === BASE (не перетираем body из common) === */
+/* Убираем body — он уже есть в common */
+
+/* === HERO === */
+.hero {
+    padding: 100px 20px;
+    position: relative;
+}
+
+.hero-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    line-height: 1.1;
+}
+
+.hero p {
+    margin: 20px 0;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.accent {
+    color: var(--home-accent);
+}
+
+/* === BUTTONS (специально для героя) === */
+.hero .btn {
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.25s;
+    font-weight: 500;
+}
+
+.hero .btn-primary {
+    background: var(--home-accent);
+    color: #fff;
+}
+
+.hero .btn-primary:hover {
+    background: var(--home-dark);
+}
+
+.hero .btn-ghost {
+    border: 1px solid var(--home-accent);
+    color: var(--home-accent);
+}
+
+.hero .btn-ghost:hover {
+    background: var(--home-accent);
+    color: #fff;
+}
+
+/* === GLASS CARD === */
+.glass-card {
+    position: relative;
+    padding: 30px;
+    backdrop-filter: blur(14px);
+    background: var(--home-glass);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(139,90,43,0.3), transparent);
+    opacity: 0.6;
+}
+
+/* === FEATURES === */
+.features {
+    padding: 60px 20px;
+}
+
+.features-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature {
+    padding: 30px;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* === CTA === */
+.cta {
+    margin-top: 60px;
+    background: linear-gradient(135deg, #3e2e21, #5c3a21);
+    color: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 2.4rem;
+    }
+}
+
+/* === АНИМАЦИЯ ПОЯВЛЕНИЯ СТРАНИЦЫ === */
+.hero,
+.features,
+.cta {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.hero {
+    animation-delay: 0.1s;
+}
+
+.features {
+    animation-delay: 0.3s;
+}
+
+.cta {
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
