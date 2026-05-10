@@ -12,6 +12,25 @@
     align-items: flex-start;
 }
 
+.btn-followers {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: transparent;
+    color: #5c3a21;
+    text-decoration: none;
+    border: 1px solid #e0d3c5;
+    border-radius: 4px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    margin-bottom: 16px;
+}
+
+.btn-followers:hover {
+    border-color: #8b5a2b;
+    color: #8b5a2b;
+}
+
 .profile-avatar {
     width: 180px;
     height: 180px;

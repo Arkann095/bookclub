@@ -22,19 +22,19 @@
 
                 <div class="profile-stats">
                     <div class="stat">
-                        <span class="stat-value">{{ $user->reviews_count ?? 0 }}</span>
+                        <span class="stat-value">{{ $reviews->count() }}</span>
                         <span class="stat-label">рецензий</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">{{ $user->comments_count ?? 0 }}</span>
+                        <span class="stat-value">{{ $comments->count() }}</span>
                         <span class="stat-label">комментариев</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">{{ $user->followers_count ?? 0 }}</span>
+                        <span class="stat-value">{{ $followers->count() }}</span>
                         <span class="stat-label">подписчиков</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">{{ $user->following_count ?? 0 }}</span>
+                        <span class="stat-value">{{ $following->count() }}</span>
                         <span class="stat-label">подписок</span>
                     </div>
                 </div>
@@ -61,8 +61,13 @@
         @if($isOwner)
             <button class="tab {{ $activeTab === 'notifications' ? 'active' : '' }}" wire:click="$set('activeTab', 'notifications')">Уведомления</button>
         @endif
+        <button class="tab {{ $activeTab === 'books' ? 'active' : '' }}" wire:click="$set('activeTab', 'books')">
+            Мои книги
+        </button>
     </div>
-
+        <a href="{{ route('profile.followers', $user) }}" class="btn-followers">
+          Управление подписчиками
+        </a>
         @if($activeTab === 'reviews')
             <div class="reviews-list">
                 @forelse($reviews as $review)

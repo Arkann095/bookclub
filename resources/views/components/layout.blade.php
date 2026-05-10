@@ -15,6 +15,7 @@
         'resources/css/books/index.css',
         'resources/css/books/current-book.css',
         'resources/css/profile/show.css',
+        'resources/css/profile/followers.css',
     ])
 </head> 
     @livewireStyles
