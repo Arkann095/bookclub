@@ -16,6 +16,7 @@ class ProfileShow extends Component
     public $following;
     public bool $isOwner = false;
     public bool $isFollowing = false;
+    public bool $isProfileHidden = false;
     public string $activeTab = 'reviews';
 
     public function mount(User $user) {
@@ -27,6 +28,14 @@ class ProfileShow extends Component
 
         $this->loadData();
 
+        $this->isProfileHidden = $user->is_private;
+
+    }
+
+    public function dehydrate() {
+    
+        $this->user->update(['is_private' => $this->isProfileHidden]);
+        
     }
 
     public function toggleFollow() {

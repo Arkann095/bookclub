@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
             $table->boolean('is_admin')->default(false);
+            $table->boolean('is_private')->default(false);
             $table->timestamps();
         });
     }

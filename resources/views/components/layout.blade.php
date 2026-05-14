@@ -14,8 +14,10 @@
         'resources/css/community/community.css',
         'resources/css/books/index.css',
         'resources/css/books/current-book.css',
+        'resources/css/books/create.css',
         'resources/css/profile/show.css',
         'resources/css/profile/followers.css',
+        'resources/css/profile/profile-edit.css',
     ])
 </head> 
     @livewireStyles

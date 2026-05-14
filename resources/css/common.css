@@ -1,23 +1,24 @@
-/* === RESET === */
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* === TYPOGRAPHY & BASE === */
 body {
     font-family: 'Source Sans 3', sans-serif;
     background-color: #fdf6ec;
     color: #3e2e21;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
 }
 
-/* === LINKS === */
 a {
     color: #8b5a2b;
     text-decoration: none;
@@ -27,14 +28,13 @@ a:hover {
     text-decoration: underline;
 }
 
-/* === CONTAINER === */
+
 .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* === BUTTONS (общие, без конфликта с хедером) === */
 .btn-outline {
     border: 2px solid #c49a6c;
     color: #c49a6c !important;
@@ -52,7 +52,6 @@ a:hover {
     text-decoration: none;
 }
 
-/* Кнопки для главной (НЕ перебивают btn-primary из хедера) */
 .home-btn-primary {
     display: inline-block;
     background-color: #8b5a2b;
@@ -89,7 +88,6 @@ a:hover {
     text-decoration: none;
 }
 
-/* === ANIMATIONS === */
 @keyframes fadeInUp {
     from {
         opacity: 0;

@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function store(LoginRequest $request) {
 
-             $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
         $remember = $request->has('remember');
 
         if (Auth::attempt($credentials, $remember)) {

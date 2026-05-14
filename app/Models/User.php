@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Review;
 use App\Models\Comment;
 
-#[Fillable(['name', 'email', 'password', 'avatar', 'bio'])]
+#[Fillable(['name', 'email', 'password', 'avatar', 'bio', 'is_private'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {

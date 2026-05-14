@@ -24,22 +24,24 @@
             @forelse($activities as $activity)
                 <div class="activity-card">
                     <div class="activity-icon">📝</div>
-
+                    
                     <div class="activity-body">
-                        <div class="activity-user-row">
-                            <div class="activity-avatar">
-                                @if($activity->user->avatar)
-                                    <img src="{{ asset('storage/' . $activity->user->avatar) }}" alt="{{ $activity->user->name }}">
-                                @else
-                                    <span class="activity-avatar-letter">{{ strtoupper(substr($activity->user->name, 0, 1)) }}</span>
-                                @endif
+                        <a href="{{ route('profile.show', $activity->user->id) }}">
+                            <div class="activity-user-row">
+                                <div class="activity-avatar">
+                                    @if($activity->user->avatar)
+                                        <img src="{{ asset('storage/' . $activity->user->avatar) }}" alt="{{ $activity->user->name }}">
+                                    @else
+                                        <span class="activity-avatar-letter">{{ strtoupper(substr($activity->user->name, 0, 1)) }}</span>
+                                    @endif
+                                </div>
+                                <strong class="activity-username">{{ $activity->user->name }}</strong>
                             </div>
-                            <strong class="activity-username">{{ $activity->user->name }}</strong>
-                        </div>
+                        </a>
 
                         <p class="activity-text">
                             написал(а) рецензию на книгу
-                            <a href="" class="activity-link">
+                            <a href="{{ route('books.show', $activity->book->id) }}" class="activity-link">
                                 «{{ $activity->book->title }}»
                             </a>
                             @if($activity->rating)

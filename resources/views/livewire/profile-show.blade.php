@@ -20,28 +20,35 @@
                     <p class="profile-bio">{{ $user->bio }}</p>
                 @endif
 
-                <div class="profile-stats">
-                    <div class="stat">
-                        <span class="stat-value">{{ $reviews->count() }}</span>
-                        <span class="stat-label">рецензий</span>
+                @if (!$isProfileHidden || $isOwner)
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value">{{ $reviews->count() }}</span>
+                            <span class="stat-label">рецензий</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ $comments->count() }}</span>
+                            <span class="stat-label">комментариев</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ $followers->count() }}</span>
+                            <span class="stat-label">подписчиков</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ $following->count() }}</span>
+                            <span class="stat-label">подписок</span>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <span class="stat-value">{{ $comments->count() }}</span>
-                        <span class="stat-label">комментариев</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">{{ $followers->count() }}</span>
-                        <span class="stat-label">подписчиков</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">{{ $following->count() }}</span>
-                        <span class="stat-label">подписок</span>
-                    </div>
-                </div>
+                @else
+                    <p class="profile-private-notice">Пользователь скрыл свой профиль</p>
+                @endif
 
                 @auth
-                    @if($isOwner)
+                    @if(!$isProfileHidden || $isOwner)
                         <a href="/profile/edit" class="btn-edit">Редактировать профиль</a>
+                        <button class="btn-edit" wire:click="$set('isProfileHidden', {{ $isProfileHidden ? 'false' : 'true' }})">
+                            {{ $isProfileHidden ? 'Показать профиль' : 'Скрыть профиль' }}
+                        </button>
                     @else
                         <button wire:click="toggleFollow" class="btn-follow {{ $isFollowing ? 'following' : '' }}">
                             {{ $isFollowing ? '✓ Вы подписаны' : '+ Подписаться' }}
@@ -53,21 +60,25 @@
         </div>
     </section>
 
-    <div class="container profile-content">
+    @if(!$isProfileHidden || $isOwner)
+        <div class="container profile-content">
 
-    <div class="profile-tabs">
-        <button class="tab {{ $activeTab === 'reviews' ? 'active' : '' }}" wire:click="$set('activeTab', 'reviews')">Рецензии</button>
-        <button class="tab {{ $activeTab === 'comments' ? 'active' : '' }}" wire:click="$set('activeTab', 'comments')">Комментарии</button>
+        <div class="profile-tabs">
+            <button class="tab {{ $activeTab === 'reviews' ? 'active' : '' }}" wire:click="$set('activeTab', 'reviews')">Рецензии</button>
+            <button class="tab {{ $activeTab === 'comments' ? 'active' : '' }}" wire:click="$set('activeTab', 'comments')">Комментарии</button>
+            @if($isOwner)
+                <button class="tab {{ $activeTab === 'notifications' ? 'active' : '' }}" wire:click="$set('activeTab', 'notifications')">Уведомления</button>
+            
+                <button class="tab {{ $activeTab === 'books' ? 'active' : '' }}" wire:click="$set('activeTab', 'books')">
+                    Мои книги
+                </button>
+            @endif
+        </div>
         @if($isOwner)
-            <button class="tab {{ $activeTab === 'notifications' ? 'active' : '' }}" wire:click="$set('activeTab', 'notifications')">Уведомления</button>
+            <a href="{{ route('profile.followers', $user) }}" class="btn-followers">
+            Управление подписчиками
+            </a>
         @endif
-        <button class="tab {{ $activeTab === 'books' ? 'active' : '' }}" wire:click="$set('activeTab', 'books')">
-            Мои книги
-        </button>
-    </div>
-        <a href="{{ route('profile.followers', $user) }}" class="btn-followers">
-          Управление подписчиками
-        </a>
         @if($activeTab === 'reviews')
             <div class="reviews-list">
                 @forelse($reviews as $review)
@@ -110,7 +121,6 @@
                 @endforelse
             </div>
         @endif
-
         @if($activeTab === 'comments')
             <div class="comments-list">
                 @forelse($comments as $comment)
@@ -129,12 +139,11 @@
                 @endforelse
             </div>
         @endif
-
         @if($activeTab === 'notifications' && $isOwner)
             <div class="notifications-list">
                 <p class="text-muted">Уведомления появятся позже</p>
             </div>
         @endif
-
+    @endif
     </div>
 </div>

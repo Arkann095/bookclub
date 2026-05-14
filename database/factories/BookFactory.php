@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Book;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +21,7 @@ class BookFactory extends Factory
     {
         return [
             
+            'user_id' => User::factory(),
             'title'=>fake()->sentence(3),
             'author'=>fake()->name(),
             'description'=>fake()->paragraph(),
