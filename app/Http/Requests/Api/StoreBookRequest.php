@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -22,14 +22,14 @@ class StoreBookRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+       return [
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:5000'],
             'cover_image' => ['nullable', 'image', 'max:2048'],
             'published_year' => ['nullable', 'integer', 'min:1900', 'max:' . date('Y')],
-            'book_file' => ['nullable', 'file', 'mimes:pdf,epub,mobi,fb2,txt,rtf,doc,docx', 'max:10240'],
             'isbn' => ['nullable', 'string', 'max:20'],
+            'book_file' => ['nullable', 'file', 'mimes:pdf,epub,mobi,fb2,txt,rtf,doc,docx', 'max:10240'],
         ];
     }
 
@@ -61,4 +61,6 @@ class StoreBookRequest extends FormRequest
         ];
 
     }
+
+
 }

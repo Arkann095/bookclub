@@ -23,7 +23,7 @@
                 @endguest
 
                 @auth
-                    <a href="/shelf" class="nav-link">Полка</a>
+                    <a href="{{ route('profile.shelf') }}" class="nav-link">Полка</a>
 
                     <div class="profile">
                         <a href="{{ route('profile.show', auth()->user()) }}">

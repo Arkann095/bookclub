@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -15,7 +15,7 @@ use App\Models\Comment;
 
 #[Fillable(['name', 'email', 'password', 'avatar', 'bio', 'is_private'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -32,6 +32,12 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin'=>'boolean'
         ];
+    }
+
+    public function books() {
+    
+        return $this->hasMany(Book::class);
+        
     }
 
     public function reviews() {
@@ -56,5 +62,11 @@ class User extends Authenticatable
 
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
 
+    }
+
+    public function shelves() {
+
+        return $this->hasMany(Shelf::class);
+        
     }
 }

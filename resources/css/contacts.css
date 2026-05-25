@@ -1,0 +1,92 @@
+/* public/css/contacts.css */
+
+.contacts-hero {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fdf6ec 0%, #f8efe0 100%);
+    border-bottom: 1px solid #e0d3c5;
+    margin-bottom: 40px;
+}
+
+.contacts-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #3e2e21;
+    text-align: center;
+}
+
+.contacts-content {
+    max-width: 550px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.contacts-card {
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(62, 46, 33, 0.05);
+}
+
+.contact-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdf6ec;
+    border-radius: 16px;
+}
+
+.contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #3e2e21;
+    margin-bottom: 8px;
+}
+
+.contact-link {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.05rem;
+    color: #8b5a2b;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+}
+
+.contact-link:hover {
+    color: #5c3a21;
+    text-decoration: underline;
+}
+
+.contact-hint {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .contacts-title {
+        font-size: 1.8rem;
+    }
+
+    .contacts-card {
+        padding: 25px;
+    }
+
+    .contact-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

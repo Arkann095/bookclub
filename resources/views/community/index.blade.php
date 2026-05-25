@@ -88,11 +88,13 @@
                             <span class="top-reader-rank">#{{ $index + 1 }}</span>
 
                             <div class="top-reader-avatar">
-                                @if($reader->avatar)
-                                    <img src="{{ asset('storage/' . $reader->avatar) }}" alt="{{ $reader->name }}">
-                                @else
-                                    <span class="top-reader-avatar-letter">{{ strtoupper(substr($reader->name, 0, 1)) }}</span>
-                                @endif
+                                <a href="{{ route('profile.show', $reader) }}">
+                                    @if($reader->avatar)
+                                        <img class="avatar-sm" src="{{ asset('storage/' . $reader->avatar) }}" alt="{{ $reader->name }}>
+                                    @else
+                                        <span class="top-reader-avatar-letter">{{ strtoupper(substr($reader->name, 0, 1)) }}</span>
+                                    @endif
+                                </a>
                             </div>
 
                             <div class="top-reader-info">
@@ -110,7 +112,7 @@
                 <h3 class="sidebar-widget-title">💬 Сейчас обсуждают</h3>
                 <div class="discussions">
                     @foreach($popularBooks as $book)
-                        <a href="" class="discussion-item">
+                        <a href="{{ route('books.show', $book) }}" class="discussion-item">
                             <div class="discussion-cover">
                                 @if($book->cover_image)
                                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('description');
-            $table->string('cover_image')->nullable();;
+            $table->string('cover_image')->nullable();
+            $table->string('book_file')->nullable();
             $table->year('published_year')->nullable();
             $table->string('isbn')->nullable()->unique();
             $table->timestamps();

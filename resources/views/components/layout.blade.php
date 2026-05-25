@@ -6,6 +6,7 @@
     <title>{{ $title ?? 'Книжный клуб' }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     @vite([
+        'resources/css/flash.css',
         'resources/css/home/home.css',
         'resources/css/common.css',
         'resources/css/header/header.css',
@@ -18,6 +19,12 @@
         'resources/css/profile/show.css',
         'resources/css/profile/followers.css',
         'resources/css/profile/profile-edit.css',
+        'resources/css/profile/shelf.css',
+        'resources/css/errors/404.css',
+        'resources/css/about.css',
+        'resources/css/contacts.css',
+        'resources/css/api.css',
+        'resources/css/auth/verify-email.css',
     ])
 </head> 
     @livewireStyles

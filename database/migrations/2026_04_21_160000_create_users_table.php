@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_private')->default(false);
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

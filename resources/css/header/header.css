@@ -162,7 +162,7 @@
     color: var(--accent);
 }
 
-/* MOBILE */
+
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
@@ -170,7 +170,6 @@
     }
 }
 
-/* === АНИМАЦИЯ ПОЯВЛЕНИЯ ХЕДЕРА === */
 .site-header {
     animation: slideDown 0.5s ease-out forwards;
     transform: translateY(-100%);

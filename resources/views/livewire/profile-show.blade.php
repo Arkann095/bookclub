@@ -144,6 +144,33 @@
                 <p class="text-muted">Уведомления появятся позже</p>
             </div>
         @endif
+        @if($activeTab === 'books' && $isOwner)
+            <div class="books-list">
+                @forelse($user->books as $book)
+                    <div class="book-card-show">
+                        <div class="book-card-cover">
+                            @if($book->cover_image)
+                                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
+                            @else
+                                <span class="book-card-letter">{{ strtoupper(substr($book->title, 0, 1)) }}</span>
+                            @endif
+                        </div>
+                        <div class="book-card-info">
+                            <a href="{{ route('books.show', $book) }}" class="book-card-title">
+                                {{ $book->title }}
+                            </a>
+                            <span class="book-card-author">{{ $book->author }}</span>
+                            <span class="book-card-year">{{ $book->published_year }}</span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="empty-state">
+                        <div class="empty-icon">📚</div>
+                        <p>Вы ещё не добавили ни одной книги</p>
+                    </div>
+                @endforelse
+            </div>
+        @endif
     @endif
     </div>
 </div>

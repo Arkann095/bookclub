@@ -10,17 +10,17 @@
             <div class="footer-links">
                 <h4>Навигация</h4>
                 <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Книги</a></li>
-                    <li><a href="#">Популярное</a></li>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="{{ route('books.index') }}">Книги</a></li>
+                    <li><a href="{{ route('community') }}">Популярное</a></li>
                 </ul>
             </div>
             <div class="footer-links">
                 <h4>О нас</h4>
                 <ul>
-                    <li><a href="#">О проекте</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">API</a></li>
+                    <li><a href="{{ route('about') }}">О проекте</a></li>
+                    <li><a href="{{ route('contacts') }}">Контакты</a></li>
+                    <li><a href="{{ route('api') }}">API</a></li>
                 </ul>
             </div>
         </div>

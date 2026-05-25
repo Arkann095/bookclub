@@ -18,7 +18,9 @@
                         <a href="/register" class="btn btn-primary">Начать</a>
                     @endguest
                     <a href="/books" class="btn btn-ghost">Каталог</a>
-                    <a href="{{ route('book.create') }}" class="btn btn-ghost">Загрузить свою книгу</a>
+                    @auth
+                        <a href="{{ route('book.create') }}" class="btn btn-ghost">Загрузить свою книгу</a>
+                    @endauth
                 </div>
             </div>
 

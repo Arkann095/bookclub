@@ -1,0 +1,169 @@
+/* public/css/about.css */
+
+.about-hero {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fdf6ec 0%, #f8efe0 100%);
+    border-bottom: 1px solid #e0d3c5;
+    margin-bottom: 40px;
+}
+
+.about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #3e2e21;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 750px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.about-card {
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(62, 46, 33, 0.05);
+}
+
+/* Интро */
+.about-intro {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0d3c5;
+}
+
+.about-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5c3a21, #8b5a2b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 4px #c49a6c;
+}
+
+.about-avatar-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #fdf6ec;
+    font-weight: 700;
+}
+
+.about-greeting {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.05rem;
+    color: #5c3a21;
+    line-height: 1.7;
+}
+
+.about-greeting strong {
+    color: #3e2e21;
+}
+
+/* Стек */
+.about-stack {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0d3c5;
+}
+
+.about-stack h3,
+.about-description h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #3e2e21;
+    margin-bottom: 15px;
+}
+
+.about-description .accent {
+    color: #8b5a2b;
+}
+
+.stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stack-tag {
+    padding: 6px 16px;
+    background-color: rgba(139, 90, 43, 0.06);
+    color: #8b5a2b;
+    border: 1px solid #d4b896;
+    border-radius: 20px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Возможности */
+.about-description {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0d3c5;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    color: #5c3a21;
+    padding: 10px 16px;
+    background-color: #fdfbf7;
+    border-radius: 8px;
+    border-left: 3px solid #c49a6c;
+    transition: background-color 0.2s;
+}
+
+.feature-item:hover {
+    background-color: #fdf6ec;
+}
+
+.feature-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+/* Футер карточки */
+.about-footer {
+    text-align: center;
+}
+
+.about-footer p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    color: #999;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .about-card {
+        padding: 25px;
+    }
+
+    .about-intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-title {
+        font-size: 1.8rem;
+    }
+}

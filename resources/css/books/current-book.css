@@ -168,12 +168,38 @@
     opacity: 0.3;
 }
 
-/* Рейтинг */
+.book-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.book-actions .btn-submit,
+.book-actions .btn-added {
+    text-align: center;
+}
+
+.guest-layout {
+    display: flex;
+}
+
+
+/* Третья кнопка на всю ширину, по центру */
+.book-actions .btn-submit:last-child,
+.book-actions .btn-added:last-child,
+.book-actions form:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    min-width: 200px;
+}
+
 .book-rating-block {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     margin-top: 18px;
+    margin-bottom: 18px;
     padding: 12px 18px;
     background-color: #fff;
     border: 1px solid #e0d3c5;

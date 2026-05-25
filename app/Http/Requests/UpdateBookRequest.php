@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookRequest extends FormRequest
+class UpdateBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,20 +20,22 @@ class StoreBookRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules() {
+    
         return [
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:5000'],
             'cover_image' => ['nullable', 'image', 'max:2048'],
             'published_year' => ['nullable', 'integer', 'min:1900', 'max:' . date('Y')],
-            'book_file' => ['nullable', 'file', 'mimes:pdf,epub,mobi,fb2,txt,rtf,doc,docx', 'max:10240'],
             'isbn' => ['nullable', 'string', 'max:20'],
+            'book_file' => ['nullable', 'file', 'mimes:pdf,epub,mobi,fb2,txt,rtf,doc,docx', 'max:10240'],
         ];
+
     }
 
     public function messages() {
+    
         return [
             'title.required' => 'Название книги обязательно',
             'title.max' => 'Название не должно быть длиннее 255 символов',
@@ -56,9 +58,10 @@ class StoreBookRequest extends FormRequest
             'author' => 'Автор',
             'description' => 'Описание',
             'cover_image' => 'Обложка',
-            'published_year' => 'Дата публикации',
-            'book_file' => 'Книга'
+            'published_year' => 'Год издания',
+            'isbn' => 'ISBN',
+            'book_file' => 'Файл книги',
         ];
-
+        
     }
 }

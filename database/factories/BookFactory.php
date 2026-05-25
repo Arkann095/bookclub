@@ -26,6 +26,7 @@ class BookFactory extends Factory
             'author'=>fake()->name(),
             'description'=>fake()->paragraph(),
             'cover_image'=>null,
+            'book_file' => null,
             'published_year'=>fake()->numberBetween(1900, 2026),
             'isbn' => fake()->unique()->numerify('978-##########'),
 

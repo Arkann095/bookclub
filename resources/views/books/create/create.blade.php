@@ -26,6 +26,13 @@
                                     <span class="cover-placeholder">📚</span>
                                     <span class="cover-text">Нажмите для загрузки обложки</span>
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="book_file">Файл книги</label>
+                                    <input type="file" name="book_file" id="book_file" accept=".pdf,.epub,.fb2" class="form-input">
+                                    @error('book_file')
+                                        <span class="form-error">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </label>
                             <input type="file" name="cover_image" id="cover_image" accept="image/*" class="cover-input">
                             @error('cover_image')

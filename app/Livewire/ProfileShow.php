@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Book;
 use App\Models\Review;
 use App\Models\Comment;
 
@@ -12,6 +13,7 @@ class ProfileShow extends Component
     public User $user;
     public $reviews;
     public $comments;
+    public $books;
     public $followers;
     public $following;
     public bool $isOwner = false;
@@ -21,7 +23,8 @@ class ProfileShow extends Component
 
     public function mount(User $user) {
     
-        $user->loadCount('reviews', 'comments', 'followers', 'following');
+        $user->loadCount('reviews', 'books', 'comments', 'followers', 'following');
+
 
         $this->user = $user;
         $this->isOwner = auth()->check() && auth()->id() === $user->id;
@@ -66,6 +69,7 @@ class ProfileShow extends Component
             ->latest()
             ->get();
 
+        $this->books = $this->user->books()->latest()->get();
         $this->followers = $this->user->followers()->get();
         $this->following = $this->user->following()->get();
     }

@@ -50,8 +50,29 @@
                     <span class="rating-value">{{ number_format($avgRating, 1) }}</span>
                     <span class="rating-count">({{ $reviewsCount }} {{ trans_choice('рецензия|рецензии|рецензий', $reviewsCount) }})</span>
                 </div>
+                @if ($book->book_file)
+                    <div class="book-actions {{ auth()->check() ? '' : 'guest-layout' }}">
+                        <a href="{{ asset('storage/' . $book->book_file) }}" class="btn-submit">
+                            📖 Просмотреть книгу
+                        </a>
+                        <a href="{{ route('books.download', $book) }}" class="btn-submit">
+                            📥 Скачать книгу
+                        </a>
+                        @auth
+                            @if($book->shelves->where('user_id', auth()->id())->count())
+                                <span class="btn-added">📚 На полке</span>
+                            @else
+                                <button wire:click="addToShelf" class="btn-submit">📌 Добавить на полку</button>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
+                @auth
+                    @if(auth()->id() === $book->user_id)
+                        <a href="{{ route('books.edit', $book) }}" class="btn-edit">Редактировать книгу</a>
+                    @endif
+                @endauth
             </div>
-
         </div>
     </section>
 
@@ -231,7 +252,6 @@
                                     @endif
                                 </button>
                             @endif
-
                         </div>
                     @endif
                 </div>

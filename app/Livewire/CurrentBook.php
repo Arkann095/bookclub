@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\Comment;
+use App\Models\Shelf;
 
 class CurrentBook extends Component
 {
@@ -14,16 +15,13 @@ class CurrentBook extends Component
     public int $reviewRating = 0;
     public string $reviewBody = '';
     public string $commentBody = '';
-
     public string $replyBody = '';
-
     public array $replyOpen = [];
-
     public array $showAllReplies = [];
 
     public function mount(Book $book)
     {
-        $book->load('reviews.user', 'comments.user', 'comments.replies.user');
+        $book->load('reviews.user', 'comments.user', 'comments.replies.user', 'shelves');
         $this->book = $book;
     }
 
@@ -108,6 +106,25 @@ class CurrentBook extends Component
         else {
             $this->showAllReplies[$commentId] = true;
         }
+    }
+
+    public function addToShelf() {
+    
+        if (!auth()->check()) return;
+
+        $exists = Shelf::where('user_id', auth()->id())
+            ->where('book_id', $this->book->id)
+            ->exists();
+
+        if (!$exists) {
+            Shelf::create([
+                'user_id' => auth()->id(),
+                'book_id' => $this->book->id,
+                'status' => 'want_to_read',
+            ]);
+        }
+
+        $this->book->load('shelves');
     }
 
     public function render()
