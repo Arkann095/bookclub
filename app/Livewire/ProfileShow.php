@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\Comment;
+use App\Events\FollowCreated;
+
+use Illuminate\Support\Facades\DB;
 
 class ProfileShow extends Component
 {
@@ -16,10 +19,11 @@ class ProfileShow extends Component
     public $books;
     public $followers;
     public $following;
-    public bool $isOwner = false;
-    public bool $isFollowing = false;
-    public bool $isProfileHidden = false;
+    public bool $isOwner;
+    public bool $isFollowing;
+    public bool $isProfileHidden;
     public string $activeTab = 'reviews';
+    public $notifications;
 
     public function mount(User $user) {
     
@@ -33,14 +37,21 @@ class ProfileShow extends Component
 
         $this->isProfileHidden = $user->is_private;
 
-    }
+        $this->isFollowing = $user->followers->contains(auth()->id());
 
+        if (request()->has('tab') && request('tab') === 'notifications') {
+            $this->activeTab = 'notifications';
+            $this->markNotificationsAsRead();
+        }
+
+    }
+    // Скрыть показать профиль
     public function dehydrate() {
     
         $this->user->update(['is_private' => $this->isProfileHidden]);
         
     }
-
+    // Подписаться отписаться
     public function toggleFollow() {
 
         if (!auth()->check()) return;
@@ -52,11 +63,11 @@ class ProfileShow extends Component
             auth()->user()->following()->attach($this->user->id);
             $this->isFollowing = true;
         }
-        
+        event(new FollowCreated($this->user));
         $this->user->loadCount('followers', 'following');
 
-        }
-
+    }
+    // Загрузка данных
     public function loadData() {
     
         $this->reviews = $this->user->reviews()
@@ -72,6 +83,27 @@ class ProfileShow extends Component
         $this->books = $this->user->books()->latest()->get();
         $this->followers = $this->user->followers()->get();
         $this->following = $this->user->following()->get();
+
+        $this->notifications = DB::table('notifications')
+            ->where('notifiable_type', User::class)
+            ->where('notifiable_id', $this->user->id)
+            ->latest()
+            ->get();
+    }
+    // Уведомления прочитаны - пометка
+    public function markNotificationsAsRead()
+    {
+        DB::table('notifications')
+            ->where('notifiable_type', User::class)
+            ->where('notifiable_id', auth()->id())
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
+
+        $this->notifications = DB::table('notifications')
+            ->where('notifiable_type', User::class)
+            ->where('notifiable_id', auth()->id())
+            ->latest()
+            ->get();
     }
 
     public function render()

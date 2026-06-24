@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'mail' => [
+        'action_color' => '#8b5a2b',
+    ],
+
 ];

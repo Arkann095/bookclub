@@ -49,6 +49,35 @@
     font-size: 0.9rem;
 }
 
+.lang-switcher {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.lang-link {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #c49a6c;
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid #c49a6c;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.lang-link:hover {
+    background-color: #c49a6c;
+    color: #3e2e21;
+}
+
+.lang-link.active {
+    background-color: #c49a6c;
+    color: #3e2e21;
+    font-weight: 600;
+}
+
 @media (max-width: 768px) {
     .footer-grid {
         grid-template-columns: 1fr;

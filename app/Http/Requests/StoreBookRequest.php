@@ -29,7 +29,7 @@ class StoreBookRequest extends FormRequest
             'cover_image' => ['nullable', 'image', 'max:2048'],
             'published_year' => ['nullable', 'integer', 'min:1900', 'max:' . date('Y')],
             'book_file' => ['nullable', 'file', 'mimes:pdf,epub,mobi,fb2,txt,rtf,doc,docx', 'max:10240'],
-            'isbn' => ['nullable', 'string', 'max:20'],
+            'isbn' => ['nullable', 'string', 'max:20', 'unique:books,isbn'],
         ];
     }
 

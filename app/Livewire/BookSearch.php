@@ -27,16 +27,14 @@ class BookSearch extends Component
 
     public function render() {
     
-        $books = Book::query()
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('title', 'like', '%' . $this->search . '%')
-                      ->orWhere('author', 'like', '%' . $this->search . '%');
-                });
-            })
-            ->withAvg('reviews', 'rating')
-            ->latest()
-            ->paginate(8);
+        $query = Book::query();
+
+        if ($this->search) {
+            $query->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('author', 'like', '%' . $this->search . '%');
+        }
+
+        $books = $query->withAvg('reviews', 'rating')->latest()->paginate(8);
 
         return view('livewire.book-search', compact('books'));
     }

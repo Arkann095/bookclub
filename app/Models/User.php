@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\HasAvatar;
+use App\Notifications\CustomResetPassword;
 
 use App\Models\Review;
 use App\Models\Comment;
 
 #[Fillable(['name', 'email', 'password', 'avatar', 'bio', 'is_private'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasAvatar
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -25,6 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return array<string, string>
      */
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return asset('storage/' . $this->avatar);
+    }
     protected function casts(): array
     {
         return [
@@ -69,4 +75,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Shelf::class);
         
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPassword($token));
+    }
+
 }

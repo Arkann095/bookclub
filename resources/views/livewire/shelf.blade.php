@@ -11,13 +11,13 @@
     <div class="container shelf-content">
         <div class="shelf-tabs">
             <button class="tab {{ $tab === 'want_to_read' ? 'active' : '' }}" wire:click="$set('tab', 'want_to_read')">
-                Хочу прочитать
+                Хочу прочитать📌
             </button>
             <button class="tab {{ $tab === 'reading' ? 'active' : '' }}" wire:click="$set('tab', 'reading')">
-                Читаю сейчас
+                Читаю сейчас📖
             </button>
             <button class="tab {{ $tab === 'read' ? 'active' : '' }}" wire:click="$set('tab', 'read')">
-                Прочитал
+                Прочитал✓
             </button>
         </div>
 
@@ -27,36 +27,44 @@
 
         <div class="shelf-grid">
             @forelse($books as $shelf)
-                <a href="{{ route('books.show', $shelf->book) }}" class="shelf-book-card">
-                    <div class="shelf-book-cover">
-                        @if($shelf->book->cover_image)
-                            <img src="{{ asset('storage/' . $shelf->book->cover_image) }}" alt="{{ $shelf->book->title }}">
-                        @else
-                            <span class="shelf-book-letter">{{ strtoupper(substr($shelf->book->title, 0, 1)) }}</span>
-                        @endif
-                        
-                        {{-- Бейдж статуса --}}
-                        <span class="shelf-badge {{ $tab }}">
-                            @if($tab === 'want_to_read')
+                <div class="shelf-book-card">
+                    <a href="{{ route('books.show', $shelf->book) }}" class="shelf-book-link">
+                        <div class="shelf-book-cover">
+                            @if($shelf->book->cover_image)
+                                <img src="{{ asset('storage/' . $shelf->book->cover_image) }}" alt="{{ $shelf->book->title }}">
+                            @else
+                                <span class="shelf-book-letter">{{ strtoupper(substr($shelf->book->title, 0, 1)) }}</span>
+                            @endif                  
+                        </div>
+                        <div class="shelf-book-info">
+                            <h3 class="shelf-book-title">{{ $shelf->book->title }}</h3>
+                            <p class="shelf-book-author">{{ $shelf->book->author }}</p>
+                            
+                            @if($shelf->started_at && $shelf->finished_at)
+                                <span class="shelf-dates">
+                                    {{ $shelf->started_at->format('d.m.Y') }} — {{ $shelf->finished_at->format('d.m.Y') }}
+                                </span>
+                            @endif
+                        </div>
+                    </a>
+
+                    <div class="shelf-status-menu">
+                        <button class="shelf-badge-toggle">
+                            @if($shelf->status === 'want_to_read')
                                 📌
-                            @elseif($tab === 'reading')
+                            @elseif($shelf->status === 'reading')
                                 📖
                             @else
                                 ✓
                             @endif
-                        </span>
+                        </button>
+                        <div class="shelf-badge-menu">
+                            <button class="shelf-badge-option" title="Хочу прочитать" wire:click="changeStatus({{ $shelf->id }}, 'want_to_read')">📌</button>
+                            <button class="shelf-badge-option" title="Читаю сейчас" wire:click="changeStatus({{ $shelf->id }}, 'reading')">📖</button>
+                            <button class="shelf-badge-option" title="Прочитал" wire:click="changeStatus({{ $shelf->id }}, 'read')">✓</button>
+                        </div>
                     </div>
-                    <div class="shelf-book-info">
-                        <h3 class="shelf-book-title">{{ $shelf->book->title }}</h3>
-                        <p class="shelf-book-author">{{ $shelf->book->author }}</p>
-                        
-                        @if($shelf->started_at && $shelf->finished_at)
-                            <span class="shelf-dates">
-                                {{ $shelf->started_at->format('d.m.Y') }} — {{ $shelf->finished_at->format('d.m.Y') }}
-                            </span>
-                        @endif
-                    </div>
-                </a>
+                </div>
             @empty
                 <div class="empty-state">
                     <div class="empty-icon">

@@ -119,6 +119,20 @@
     flex-wrap: wrap;
 }
 
+.book-no-content {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #8b5a2b;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
 .book-page-meta .book-year,
 .book-page-meta .book-isbn {
     display: inline-flex;

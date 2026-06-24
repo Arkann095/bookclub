@@ -8,6 +8,8 @@ use App\Models\Review;
 use App\Models\User;
 use App\Models\Book;
 
+use Illuminate\Support\Facades\Cache;
+
 class CommunityController extends Controller
 {
     public function index()

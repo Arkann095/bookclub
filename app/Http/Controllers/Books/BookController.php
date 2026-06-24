@@ -10,45 +10,71 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
     
     public function store(StoreBookRequest $request) {
 
-        if ($request->hasFile('cover_image')) {
-            $pathCover = $request->file('cover_image')->store('books/covers', 'public');
+        try {
+            if ($request->hasFile('cover_image')) {
+                $pathCover = $request->file('cover_image')->store('books/covers', 'public');
+            }
+
+            if ($request->hasFile('book_file')) {
+                $pathFile = $request->file('book_file')->store('books/files', 'public');
+            }
+
+                Book::create([
+                'title' => $request->title,
+                'author' => $request->author,
+                'description' => $request->description,
+                'published_year' => $request->published_year,
+                'isbn' => $request->isbn,
+                'cover_image' => $pathCover ?? null,
+                'book_file' => $pathFile ?? null,
+                'user_id' => auth()->id(),
+            ]);
+
+            return redirect()->route('books.index')->with('success', 'Книга добавлена');
+
+        } catch (\Exception $e) {
+            Log::error('Ошибка создания книги', [
+                'user_id' => auth()->id(),
+                'error' => $e->getMessage(),
+            ]);
+
+            return back()->with('error', 'Не удалось создать книгу. Попробуйте позже.');
         }
-
-        if ($request->hasFile('book_file')) {
-            $pathFile = $request->file('book_file')->store('books/files', 'public');
-        }
-
-            Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'description' => $request->description,
-            'published_year' => $request->published_year,
-            'isbn' => $request->isbn,
-            'cover_image' => $pathCover ?? null,
-            'book_file' => $pathFile ?? null,
-            'user_id' => auth()->id(),
-        ]);
-
-        return redirect()->route('books.index')->with('success', 'Книга добавлена');
 
     }
     public function downloadBook(Book $book) {
     
-        if (!$book->book_file) {
-            abort(404);
+        try {
+            Log::info('Скачивание книги', [
+                'user_id' => auth()->id(),
+                'book_id' => $book->id,
+                'title' => $book->title,
+            ]);
+
+            if (!$book->book_file || !Storage::disk('public')->exists($book->book_file)) {
+                return back()->with('error', 'Файл не найден');
+            }
+
+            return Storage::disk('public')->download($book->book_file);
+
+        } catch (\Exception $e) {
+            Log::error('Ошибка скачивания книги', [
+                'user_id' => auth()->id(),
+                'book_id' => $book->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return back()->with('error', 'Файл книги не найден. Обратитесь к администратору.');
         }
-        
-        return Storage::disk('public')->download($book->book_file);
 
     }
-
     public function addBook(Book $book) {
 
         $exists = Shelf::where('user_id', auth()->id())
@@ -66,13 +92,11 @@ class BookController extends Controller
         return back()->with('success', 'Книга добавлена на полку');
 
     }
-
     public function edit(Book $book) {
     
         return view('books.edit.edit', compact('book'));
 
     }
-
     public function update(UpdateBookRequest $request, Book $book) {
 
         $validated = $request->validated();

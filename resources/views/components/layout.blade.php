@@ -12,6 +12,8 @@
         'resources/css/header/header.css',
         'resources/css/footer/footer.css',
         'resources/css/auth/auth.css',
+        'resources/css/auth/forgot-password.css',
+        'resources/css/auth/reset-password.css',
         'resources/css/community/community.css',
         'resources/css/books/index.css',
         'resources/css/books/current-book.css',
@@ -25,6 +27,7 @@
         'resources/css/contacts.css',
         'resources/css/api.css',
         'resources/css/auth/verify-email.css',
+        'resources/css/profile/shelf.css',
     ])
 </head> 
     @livewireStyles

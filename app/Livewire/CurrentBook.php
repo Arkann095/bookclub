@@ -8,6 +8,9 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Models\Comment;
 use App\Models\Shelf;
+use App\Events\ReviewCreated;
+
+use App\Events\CommentCreated;
 
 class CurrentBook extends Component
 {
@@ -24,9 +27,10 @@ class CurrentBook extends Component
         $book->load('reviews.user', 'comments.user', 'comments.replies.user', 'shelves');
         $this->book = $book;
     }
-
+    // Валидация, событие на уведомление, addDB - для рецензий
     public function storeReview() {
     
+        // dd('STORE REVIEW');
         $this->validate([
             'reviewRating' => ['required', 'integer', 'min:1', 'max:5'],
             'reviewBody' => ['required', 'string', 'min:10', 'max:2000'],
@@ -42,17 +46,19 @@ class CurrentBook extends Component
             'reviewBody' => 'Текст рецензии',
         ]);
 
-        Review::create([
+        $review = Review::create([
             'user_id' => auth()->id(),
             'book_id' => $this->book->id,
             'rating' => $this->reviewRating,
             'body' => $this->reviewBody,
         ]);
 
+        event(new ReviewCreated($review));
+
         $this->book->load('reviews.user');
         $this->reset('reviewRating', 'reviewBody');
     }
-
+    // Валидация, событие на уведомление, addDB - для комментарий
     public function storeComment() {
     
         $this->validate([
@@ -65,39 +71,43 @@ class CurrentBook extends Component
             'commentBody' => 'Текст комментария',
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'user_id' => auth()->id(),
             'book_id' => $this->book->id,
             'parent_id' => null,
             'body' => $this->commentBody,
         ]);
 
+        event(new CommentCreated($comment));
+
         $this->book->load('comments.user', 'comments.replies.user');
         $this->reset('commentBody');
     }
-    
+    // Валидация, событие на уведомление, addDB - для ответов на комментарий
     public function storeReply(int $parentId) {
 
         $this->validate([
             'replyBody' => ['required', 'string', 'min:3'],
         ], [
             'replyBody.required' => 'Напишите свой комментарий',
-            'replyBody.min' => 'Не короче 3 символов',
+            'replyBody.min' => 'Не короче 3 символов!',
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'user_id' => auth()->id(),
             'book_id' => $this->book->id,
             'parent_id' => $parentId,
             'body' => $this->replyBody
         ]);
 
+        event(new CommentCreated($comment));
+
         $this->reset('replyBody');
         unset($this->replyOpen[$parentId]);
         $this->book->load('comments.user', 'comments.replies.user');
 
     }
-
+    // скрываем ответы на комментарии если их больше 5
     public function toggleReplies(int $commentId) {
         
         if (isset($this->showAllReplies[$commentId])) {
@@ -107,7 +117,7 @@ class CurrentBook extends Component
             $this->showAllReplies[$commentId] = true;
         }
     }
-
+    // Добавляет книгу на книжную полку текущего пользователя.
     public function addToShelf() {
     
         if (!auth()->check()) return;

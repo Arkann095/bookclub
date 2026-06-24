@@ -12,6 +12,11 @@ class Shelf extends Model
 {
     protected $fillable = ['user_id', 'book_id', 'status', 'started_at', 'finished_at'];
 
+    protected $casts = [
+        'started_at' => 'datetime',
+        'finished_at' => 'datetime',
+    ];
+
     public function user() {
 
         return $this->belongsTo(User::class);

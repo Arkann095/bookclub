@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Community\CommunityController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Books\BookController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 use App\Livewire\CurrentBook;
 use App\Livewire\ProfileShow;
@@ -29,22 +31,29 @@ Route::middleware('guest')->group(function () {
 
     Route::view('/login', 'auth.login')->name('login');
     Route::post('/login', [LoginController::class, 'store']);
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout')->middleware('auth');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/shelf', Shelf::class)->name('profile.shelf');
-    Route::get('/profile/{user}', ProfileShow::class)->name('profile.show');
     Route::view('/profile/edit', 'profile.profile-edit')->name('profile.edit');
-    Route::get('/profile/{user}/followers', ProfileFollowers::class)->name('profile.followers');
     Route::put('/profile', [ProfileSettingsController::class, 'update'])->name('profile.update');
     Route::view('/profile/book-create', 'books.create.create')->name('book.create');
     Route::post('/profile/book-create', [BookController::class, 'store']);
+    Route::get('/profile/{user}/followers', ProfileFollowers::class)->name('profile.followers');
+    
     Route::post('/books/{book}/shelf', [BookController::class, 'addBook'])->name('books.shelf.store');
     Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
-    
 });
+
+Route::get('/profile/{user}', ProfileShow::class)->name('profile.show');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -71,3 +80,9 @@ Route::view('/api', 'api')->name('api');
 Route::fallback(function () {
     return view('errors.404');
 });
+
+Route::get('/lang/{locale}', function ($locale) {
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+    return back();
+})->name('lang.switch');

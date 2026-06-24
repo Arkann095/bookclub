@@ -33,7 +33,7 @@
             <button type="submit" class="auth-submit">Войти</button>
 
             <p class="auth-link">
-                <a href="#">Забыли пароль?</a>
+                <a href="{{ route('password.request') }}">Забыли пароль?</a>
             </p>
 
             <p class="auth-link">

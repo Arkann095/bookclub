@@ -48,7 +48,6 @@
     border-bottom-color: #8b5a2b;
 }
 
-/* Сетка книг */
 .shelf-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -56,17 +55,22 @@
 }
 
 .shelf-book-card {
-    text-decoration: none;
+    position: relative;
     background-color: #fff;
     border: 1px solid #e0d3c5;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .shelf-book-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.shelf-book-link {
+    text-decoration: none;
+    display: block;
 }
 
 .shelf-book-cover {
@@ -91,22 +95,6 @@
     font-size: 4rem;
     color: #fdf6ec;
     font-weight: 700;
-}
-
-/* Бейдж статуса */
-.shelf-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .shelf-book-info {
@@ -134,7 +122,73 @@
     color: #bbb;
 }
 
-/* Пусто */
+/* Меню статуса */
+.shelf-status-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.shelf-badge-toggle {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+    position: relative;
+    z-index: 11;
+}
+
+.shelf-badge-toggle:hover {
+    background-color: #fff;
+}
+
+.shelf-badge-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #e0d3c5;
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    gap: 2px;
+    z-index: 10;
+}
+
+.shelf-badge-toggle:hover + .shelf-badge-menu,
+.shelf-badge-menu:hover {
+    display: flex;
+}
+
+.shelf-badge-option {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: none;
+    background: none;
+}
+
+.shelf-badge-option:hover {
+    background-color: #fdf6ec;
+}
+
 .empty-state {
     text-align: center;
     padding: 60px 20px;

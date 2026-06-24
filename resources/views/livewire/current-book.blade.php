@@ -1,11 +1,11 @@
 <div>
-    {{-- 1. КНИГА --}}
+    <!-- кнопка назад -->
     <div class="back-link">
         <a href="/" class="btn-back">← Назад</a>
     </div>
     <section class="book-hero">
         <div class="container book-hero-inner">
-            
+            <!-- обложка -->
             <div class="book-page-cover">
                 @if($book->cover_image)
                     <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
@@ -13,11 +13,11 @@
                     <span class="book-cover-letter">{{ strtoupper(substr($book->title, 0, 1)) }}</span>
                 @endif
             </div>
-
+            <!-- информация о книге -->
             <div class="book-page-info">
                 <h1 class="book-page-title">{{ $book->title }}</h1>
-                <p class="book-page-author">{{ $book->author }}</p>
-
+                <a href="{{ route('profile.show', $book->user->id) }}" class="book-page-author">{{ $book->author }}</a>
+                <!-- год и ISBN -->
                 <div class="book-page-meta">
                     @if($book->published_year)
                         <span class="book-year">{{ $book->published_year }} г.</span>
@@ -26,13 +26,13 @@
                         <span class="book-isbn">ISBN: {{ $book->isbn }}</span>
                     @endif
                 </div>
-
+                <!-- Если есть описание -->
                 @if($book->description)
                     <div class="book-page-description">
                         {{ $book->description }}
                     </div>
                 @endif
-
+                <!-- Рейтинг -->
                 @php
                     $avgRating = $book->reviews->avg('rating');
                     $reviewsCount = $book->reviews->count();
@@ -50,6 +50,7 @@
                     <span class="rating-value">{{ number_format($avgRating, 1) }}</span>
                     <span class="rating-count">({{ $reviewsCount }} {{ trans_choice('рецензия|рецензии|рецензий', $reviewsCount) }})</span>
                 </div>
+                <!-- Действия с книгой -->
                 @if ($book->book_file)
                     <div class="book-actions {{ auth()->check() ? '' : 'guest-layout' }}">
                         <a href="{{ asset('storage/' . $book->book_file) }}" class="btn-submit">
@@ -66,7 +67,10 @@
                             @endif
                         @endauth
                     </div>
+                @else
+                    <p class="book-no-content">Автор еще не добавил книгу</p>
                 @endif
+                <!-- Редактировать книгу -->
                 @auth
                     @if(auth()->id() === $book->user_id)
                         <a href="{{ route('books.edit', $book) }}" class="btn-edit">Редактировать книгу</a>
@@ -75,16 +79,14 @@
             </div>
         </div>
     </section>
-
+    <!-- Социальная часть -->
     <div class="container book-layout">
-
-        {{-- 2. РЕЦЕНЗИИ --}}
         <div class="reviews-section">
             <div class="section-header">
                 <h2 class="section-title">Рецензии</h2>
                 <span class="section-count">{{ $reviewsCount }}</span>
             </div>
-
+            <!-- Оставить рецензию если авторизирован -->
             @auth
                 <div class="review-form">
                     <h3>Оставить рецензию</h3>
@@ -93,7 +95,7 @@
                             <p class="form-label">Оценка</p>
                             <div class="rating-input">
                                 @for($i = 5; $i >= 1; $i--)
-                                    <input type="radio" wire:model.live="reviewRating" value="{{ $i }}" id="star{{ $i }}">
+                                    <input type="radio" wire:model="reviewRating" value="{{ $i }}" id="star{{ $i }}">
                                     <label for="star{{ $i }}">★</label>
                                 @endfor
                             </div>
@@ -109,7 +111,7 @@
                 </div>
                 <hr class="divider">
             @endauth
-
+            <!-- Отобразить рецензии -->
             @forelse($book->reviews as $review)
                 <div class="review-card">
                     <div class="review-header">
@@ -153,14 +155,13 @@
                 </div>
             @endforelse
         </div>
-
-       {{-- 3. КОММЕНТАРИИ --}}
+       <!-- Комментарии и ответы -->
         <div class="comments-section">
             <div class="section-header">
                 <h2 class="section-title">Обсуждение</h2>
                 <span class="section-count">{{ $book->comments->whereNull('parent_id')->count() }}</span>
             </div>
-
+            <!-- Отправить комментарий если авторизирован -->
             @auth
                 <div class="comment-form">
                     <form wire:submit="storeComment">
@@ -170,7 +171,7 @@
                     </form>
                 </div>
             @endauth
-
+            <!-- Отображение комментарий -->
             @forelse($book->comments->whereNull('parent_id') as $comment)
                 <div class="comment-card">
                     <div class="comment-header">
@@ -187,7 +188,7 @@
                         </div>
                     </div>
                     <p class="comment-body">{{ $comment->body }}</p>
-
+                    <!-- Отправить ответ к коментарию -->
                     @auth
                         <button class="btn-reply" 
                                 wire:click="$toggle('replyOpen.{{ $comment->id }}')">
@@ -209,8 +210,7 @@
                             </div>
                         @endif
                     @endauth
-
-                    {{-- ОТВЕТЫ --}}
+                    <!-- Отобразить ответы к комментариям и кнопки -->
                     @if($comment->replies->count() > 0)
                         <div class="replies">
 
@@ -239,7 +239,7 @@
                                     </div>
                                 @endforeach
                             @endif
-
+                            <!-- Если ответов больше 5 - скрыть -->
                             @if($totalReplies > 5)
                                 <button 
                                     class="btn-submit-sm"
@@ -255,6 +255,7 @@
                         </div>
                     @endif
                 </div>
+            <!-- Пока нет комментариев -->
             @empty
                 <div class="empty-state">
                     <div class="empty-icon">💬</div>
